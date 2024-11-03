@@ -1,0 +1,9 @@
+services:
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=mylittleurl'
+      - 'POSTGRES_USER=lefpap'
+      - 'POSTGRES_PASSWORD=lefpap'
+    ports:
+      - '5432:5432'
