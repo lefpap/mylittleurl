@@ -1,0 +1,16 @@
+server:
+  port: 8080
+
+spring:
+  docker:
+    compose:
+      file: ./docker-compose.yml
+      skip:
+        in-tests: false
+  sql:
+    init:
+      mode: always
+
+short-url:
+  allowed-characters: ${ALLOWED_CHARS:abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789}
+  key-length: ${KEY_LENGTH:6}

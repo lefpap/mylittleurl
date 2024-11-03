@@ -1,0 +1,18 @@
+meta {
+  name: CREATE short url
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{api_url}}/urls
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "url": "https://www.reddit.com/",
+    "expires_at": "2025-10-28T15:52:26.024127700Z"
+  }
+}
