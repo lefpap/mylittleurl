@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.List;
+
 @RestController
 @RequestMapping
 public class LittleUrlController {
@@ -13,8 +15,13 @@ public class LittleUrlController {
     private LittleUrlService urlService;
 
     @GetMapping("/{code}")
-    public RedirectView resolve(@PathVariable String code) {
+    public RedirectView resolveLittleUrl(@PathVariable String code) {
         return urlService.resolveUrlCode(code);
+    }
+
+    @GetMapping("/api/v1/urls")
+    public List<LittleUrl> listAllLittleUrls() {
+        return urlService.findAll();
     }
 
     @GetMapping("/api/v1/urls/{code}")

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -35,6 +36,11 @@ public class LittleUrlService {
             .clickCount(updatedClickCount)
             .build()
         );
+    }
+
+    public List<LittleUrl> findAll() {
+        log.info("Retrieving all URLs");
+        return urlRepository.findAll();
     }
 
     public LittleUrl findByCode(String code) {
