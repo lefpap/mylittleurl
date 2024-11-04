@@ -2,15 +2,21 @@ server:
   port: 8080
 
 spring:
+  profiles:
+    include: "docker-support"
+
   docker:
     compose:
-      file: ./docker-compose.yml
+      file: docker-compose.yml
+      enabled: true
       skip:
         in-tests: false
+
   sql:
     init:
       mode: always
 
-short-url:
+code-gen:
   allowed-characters: ${ALLOWED_CHARS:abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789}
-  key-length: ${KEY_LENGTH:6}
+  code-length: ${KEY_LENGTH:6}
+  max-attempts: ${MAX_ATTEMPTS:10}
