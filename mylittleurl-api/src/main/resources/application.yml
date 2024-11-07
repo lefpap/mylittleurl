@@ -1,6 +1,16 @@
 server:
   port: 8080
 
+logging:
+  level:
+    org:
+      springframework:
+        data: INFO
+        jdbc:
+          core:
+            JdbcTemplate: DEBUG
+            StatementCreatorUtils: TRACE
+
 spring:
   profiles:
     include: "docker-support"
