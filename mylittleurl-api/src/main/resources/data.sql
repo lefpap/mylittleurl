@@ -1,4 +1,4 @@
-INSERT INTO little_urls
+INSERT INTO links
     (code, url)
 VALUES
     ('short-01', 'https://www.facebook.com/'),

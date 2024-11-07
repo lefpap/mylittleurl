@@ -1,4 +1,4 @@
-package com.lefpap.mylittleurl_api;
+package com.lefpap.mylittleurl_api.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.lang.NonNull;

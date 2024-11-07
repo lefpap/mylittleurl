@@ -1,5 +1,7 @@
-package com.lefpap.mylittleurl_api;
+package com.lefpap.mylittleurl_api.lib;
 
+import com.lefpap.mylittleurl_api.config.CodeGeneratorConfig;
+import com.lefpap.mylittleurl_api.repository.LinkRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -9,10 +11,10 @@ import java.util.Random;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class LittleUrlCodeGen {
+public class UniqueCodeGenerator {
 
-    private final LittleUrlCodeGenConfig config;
-    private final LittleUrlRepository urlRepository;
+    private final CodeGeneratorConfig config;
+    private final LinkRepository urlRepository;
     private static final Random RANDOM = new Random();
 
     public String generateUniqueCode() {

@@ -1,4 +1,4 @@
-package com.lefpap.mylittleurl_api;
+package com.lefpap.mylittleurl_api.data.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.FutureOrPresent;
@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotEmpty;
 
 import java.time.Instant;
 
-public record LittleUrlRequestDTO(
+public record CreateLinkRequest(
         @NotEmpty String url,
 
         @JsonProperty("expires_at")
