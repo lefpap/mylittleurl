@@ -1,19 +1,21 @@
 package com.lefpap.mylittleurl_api.service;
 
 import com.lefpap.mylittleurl_api.data.dto.CreateLinkRequest;
-import com.lefpap.mylittleurl_api.data.dto.LinkResponse;
+import com.lefpap.mylittleurl_api.data.dto.GetClickMetadataResponse;
+import com.lefpap.mylittleurl_api.data.dto.GetLinkResponse;
+import com.lefpap.mylittleurl_api.data.model.ClickMetadata;
 import com.lefpap.mylittleurl_api.data.model.Link;
-import com.lefpap.mylittleurl_api.data.model.LinkClickMetadata;
+import com.lefpap.mylittleurl_api.data.model.LinkView;
 import com.lefpap.mylittleurl_api.lib.UniqueCodeGenerator;
-import com.lefpap.mylittleurl_api.mapper.LinkClickMetadataMapper;
+import com.lefpap.mylittleurl_api.mapper.ClickMetadataMapper;
 import com.lefpap.mylittleurl_api.mapper.LinkMapper;
+import com.lefpap.mylittleurl_api.repository.ClickMetadataRepository;
 import com.lefpap.mylittleurl_api.repository.LinkRepository;
+import com.lefpap.mylittleurl_api.repository.LinkViewRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 
@@ -23,58 +25,47 @@ import java.util.List;
 public class LinkService {
 
     private final LinkRepository linkRepository;
+    private final LinkViewRepository linkViewRepository;
+    private final ClickMetadataRepository metadataRepository;
 
     private final LinkMapper linkMapper;
-    private final LinkClickMetadataMapper clickMetadataMapper;
+    private final ClickMetadataMapper metadataMapper;
 
     private final UniqueCodeGenerator codeGenerator;
 
-    @Transactional
-    public RedirectView resolveUrlCode(String code, HttpHeaders headers) {
-        log.info("Resolving link for code: {}", code);
-
-        Link.LinkBuilder linkBuilder = linkRepository.findByCode(code)
-            .orElseThrow()
-            .toBuilder();
-
-        LinkClickMetadata metadata = clickMetadataMapper.fromHttpHeaders(headers);
-        linkBuilder.metadata(metadata);
-
-        Link updatedLink = linkRepository.save(linkBuilder.build());
-        log.info("Saved new metadata for link: {}", updatedLink.id());
-
-        log.info("Redirecting to URL: {} for code: {}", updatedLink.url(), code);
-        return new RedirectView(updatedLink.url(), false, false);
-    }
-
-    public List<LinkResponse> findAll() {
+    public List<GetLinkResponse> findAll() {
         log.info("Retrieving all links");
-        return linkMapper.toResponse(linkRepository.findAll());
+        List<LinkView> links = linkViewRepository.findAll();
+        return linkMapper.viewToGetLinkListResponse(links);
     }
 
-    public LinkResponse findByCode(String code) {
+    public GetLinkResponse findByCode(String code) {
         log.info("Finding link for code: {}", code);
-        Link link = linkRepository.findByCode(code)
+
+        LinkView linkView = linkViewRepository.findByCode(code)
             .orElseThrow();
 
-        return linkMapper.toResponse(link);
+        return linkMapper.viewToGetLinkResponse(linkView);
     }
 
     @Transactional
-    public LinkResponse create(CreateLinkRequest request) {
+    public GetLinkResponse create(CreateLinkRequest request) {
 
         log.info("Creating a new link for url: {}", request.url());
         String uniqueCode = codeGenerator.generateUniqueCode();
 
         Link link = linkMapper.fromCreateRequest(request).toBuilder()
             .code(uniqueCode)
-            .url(request.url())
             .build();
 
         Link createdLink = linkRepository.save(link);
         log.info("Successfully saved link with code: {}", createdLink.code());
 
-        return linkMapper.toResponse(createdLink);
+        return linkMapper.toGetLinkResponse(createdLink);
     }
 
+    public List<GetClickMetadataResponse> findLinkMetadataByCode(String code) {
+        List<ClickMetadata> metadata = metadataRepository.findByLinkCode(code);
+        return metadataMapper.toGetClickMetadataListResponse(metadata);
+    }
 }
