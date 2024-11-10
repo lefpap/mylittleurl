@@ -25,7 +25,7 @@ public class UniqueCodeGenerator {
             String code = generateRandomCode();
             log.debug("Generated code: {} (Attempt {}/{})", code, attempts, maxAttempts);
 
-            if (urlRepository.findByCode(code).isEmpty()) {
+            if (Boolean.FALSE.equals(urlRepository.existsByCode(code))) {
                 log.info("Successfully generated unique code: {} after {} attempt(s)", code, attempts);
                 return code;
             }

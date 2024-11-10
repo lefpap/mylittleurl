@@ -5,8 +5,8 @@ import lombok.Builder;
 
 import java.time.Instant;
 
-@Builder
-public record LinkResponse(
+@Builder(toBuilder = true)
+public record GetLinkResponse(
     Long id,
     String code,
     String url,
@@ -18,5 +18,5 @@ public record LinkResponse(
     Instant expiresAt,
 
     @JsonProperty("click_count")
-    Integer clickCount
-) {}
+    int clickCount
+) { }

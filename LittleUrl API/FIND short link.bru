@@ -1,15 +1,15 @@
 meta {
-  name: FIND short url
+  name: FIND short link
   type: http
   seq: 2
 }
 
 get {
-  url: {{api_url}}/urls/:code
+  url: {{api_url}}/links/:code
   body: none
   auth: none
 }
 
 params:path {
-  code: short-03
+  code: short-01
 }

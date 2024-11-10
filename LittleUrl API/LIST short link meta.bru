@@ -1,0 +1,15 @@
+meta {
+  name: LIST short link meta
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{api_url}}/links/:code/meta
+  body: none
+  auth: none
+}
+
+params:path {
+  code: short-01
+}
