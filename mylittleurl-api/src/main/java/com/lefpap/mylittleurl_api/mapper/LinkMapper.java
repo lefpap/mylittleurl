@@ -2,8 +2,8 @@ package com.lefpap.mylittleurl_api.mapper;
 
 import com.lefpap.mylittleurl_api.data.dto.CreateLinkRequest;
 import com.lefpap.mylittleurl_api.data.dto.GetLinkResponse;
-import com.lefpap.mylittleurl_api.data.model.Link;
-import com.lefpap.mylittleurl_api.data.model.LinkView;
+import com.lefpap.mylittleurl_api.data.entity.Link;
+import com.lefpap.mylittleurl_api.data.projections.LinkSummary;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
@@ -28,28 +28,28 @@ public class LinkMapper {
     }
 
 
-    public GetLinkResponse viewToGetLinkResponse(LinkView linkView) {
-        if (linkView == null) {
+    public GetLinkResponse summaryToGetLinkResponse(LinkSummary linkSummary) {
+        if (linkSummary == null) {
             return null;
         }
 
         return GetLinkResponse.builder()
-            .id(linkView.id())
-            .code(linkView.code())
-            .url(linkView.url())
-            .clickCount(linkView.clickCount())
-            .createdAt(linkView.createdAt())
-            .expiresAt(linkView.expiresAt())
+            .id(linkSummary.id())
+            .code(linkSummary.code())
+            .url(linkSummary.url())
+            .clickCount(linkSummary.clickCount())
+            .createdAt(linkSummary.createdAt())
+            .expiresAt(linkSummary.expiresAt())
             .build();
     }
 
-    public List<GetLinkResponse> viewToGetLinkListResponse(List<LinkView> linkViews) {
-        if (linkViews == null || linkViews.isEmpty()) {
+    public List<GetLinkResponse> summaryToGetLinkListResponse(List<LinkSummary> linkSummaries) {
+        if (linkSummaries == null || linkSummaries.isEmpty()) {
             return Collections.emptyList();
         }
 
-        return linkViews.stream()
-            .map(this::viewToGetLinkResponse)
+        return linkSummaries.stream()
+            .map(this::summaryToGetLinkResponse)
             .filter(Objects::nonNull)
             .toList();
     }

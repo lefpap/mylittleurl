@@ -9,19 +9,9 @@ logging:
         jdbc:
           core:
             JdbcTemplate: DEBUG
-            StatementCreatorUtils: TRACE
+            StatementCreatorUtils: DEBUG
 
 spring:
-  profiles:
-    include: "docker-support"
-
-  docker:
-    compose:
-      file: docker-compose.yml
-      enabled: true
-      skip:
-        in-tests: false
-
   sql:
     init:
       mode: always

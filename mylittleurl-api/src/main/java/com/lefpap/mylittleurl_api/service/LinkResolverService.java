@@ -1,7 +1,7 @@
 package com.lefpap.mylittleurl_api.service;
 
-import com.lefpap.mylittleurl_api.data.model.ClickMetadata;
-import com.lefpap.mylittleurl_api.data.model.Link;
+import com.lefpap.mylittleurl_api.data.entity.ClickMetadata;
+import com.lefpap.mylittleurl_api.data.entity.Link;
 import com.lefpap.mylittleurl_api.mapper.ClickMetadataMapper;
 import com.lefpap.mylittleurl_api.repository.ClickMetadataRepository;
 import com.lefpap.mylittleurl_api.repository.LinkRepository;
