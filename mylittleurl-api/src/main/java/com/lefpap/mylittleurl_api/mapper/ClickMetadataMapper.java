@@ -1,11 +1,10 @@
 package com.lefpap.mylittleurl_api.mapper;
 
 import com.lefpap.mylittleurl_api.data.dto.GetClickMetadataResponse;
-import com.lefpap.mylittleurl_api.data.model.ClickMetadata;
+import com.lefpap.mylittleurl_api.data.entity.ClickMetadata;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
-import java.time.Instant;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -21,7 +20,6 @@ public class ClickMetadataMapper {
         return ClickMetadata.builder()
             .userAgent(headers.getFirst(HttpHeaders.USER_AGENT))
             .referrerUrl(headers.getFirst(HttpHeaders.REFERER))
-            .createdAt(Instant.now())
             .build();
     }
 

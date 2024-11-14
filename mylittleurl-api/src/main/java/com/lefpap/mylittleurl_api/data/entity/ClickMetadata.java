@@ -1,4 +1,4 @@
-package com.lefpap.mylittleurl_api.data.model;
+package com.lefpap.mylittleurl_api.data.entity;
 
 import lombok.Builder;
 import org.springframework.data.annotation.CreatedDate;

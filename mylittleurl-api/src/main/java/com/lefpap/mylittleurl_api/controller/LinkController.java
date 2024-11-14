@@ -36,5 +36,4 @@ public class LinkController {
     public GetLinkResponse createLink(@Valid @RequestBody CreateLinkRequest request) {
         return linkService.create(request);
     }
-
 }
